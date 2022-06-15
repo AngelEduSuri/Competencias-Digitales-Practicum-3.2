@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Competencia Digitales Pracitum 3.2</string>
+    <string name="next">Continuar</string>
+    <string name="not_show_message">No mostrar de nuevo</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="my_result">Mis Notas</string>
 </resources>
