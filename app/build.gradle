@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -49,8 +50,6 @@ android {
 
 dependencies {
 
-    implementation "androidx.navigation:navigation-compose:$nav_version"
-
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
     implementation "androidx.compose.ui:ui:$compose_version"
@@ -64,9 +63,24 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
+
+    // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+
+    // Navigation
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:30.1.0')
+    // Analytics
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    // Auth
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    // Google Auth
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.3'
 }

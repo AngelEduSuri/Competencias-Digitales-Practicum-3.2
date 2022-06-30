@@ -3,7 +3,6 @@
 
     <style name="Theme.CompetenciaDigitalesPracticum32" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/status_bar</item>
-        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/icon_splash</item>
-        <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/status_bar</item>
+        <item name="android:windowBackground">@color/status_bar</item>
     </style>
 </resources>

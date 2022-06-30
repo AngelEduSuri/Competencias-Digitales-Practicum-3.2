@@ -1,11 +1,11 @@
-package com.aesuriagasalazar.competenciadigitalespracticum3_2.data.datasources
+package com.aesuriagasalazar.competenciadigitalespracticum3_2.data.sources
 
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.Message
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.UserActions
 import javax.inject.Inject
 
-class LocalDataSource @Inject constructor() {
+class StaticDataSource @Inject constructor() {
 
     val initialMessage = Message(
         lottieAnim = R.raw.initial_message_lottie,

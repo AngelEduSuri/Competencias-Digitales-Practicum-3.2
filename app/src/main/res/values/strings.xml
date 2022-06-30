@@ -4,4 +4,11 @@
     <string name="not_show_message">No mostrar de nuevo</string>
     <string name="welcome">Bienvenido</string>
     <string name="my_result">Mis Notas</string>
+    <string name="edit_name">editar nombre</string>
+    <string name="login_google">Iniciar con Google</string>
+    <string name="icon_splash_description">icono de pantalla de inicio</string>
+    <string name="client_id">747793282874-4uq9bb7en7ftithmnuch5ttr8akvf4mk.apps.googleusercontent.com</string>
+    <string name="sign_out">Cerrar Sesión</string>
+    <string name="login_success">Ingreso del usuario con éxito</string>
+    <string name="logout_success">Cerrar sesión con exito</string>
 </resources>

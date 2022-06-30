@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.Message
 import com.airbnb.lottie.compose.LottieAnimation
@@ -22,17 +23,17 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 
 @Composable
-fun InitialMessageScreen(viewModel: InitialMessageViewModel, onClick: () -> Unit) {
+fun InitialMessageScreen(
+    onNextButtonClick: (String, String) -> Unit,
+    viewModel: InitialMessageViewModel = hiltViewModel(),
+) {
 
     val messageInitial = viewModel.uiState.collectAsState().value
 
     ScreenBody(
         messageInitial = messageInitial,
-        onCheckedChanged = { viewModel.onCheckChanged(it) },
-        onClick = {
-            if (messageInitial.isChecked) viewModel.onSaveNotShowInitialMessage()
-            onClick()
-        }
+        onCheckedChanged = viewModel::onCheckChanged,
+        onNextButton = { viewModel.onSaveCheckAndNavigate(onMenuScreen = onNextButtonClick) }
     )
 }
 
@@ -40,7 +41,7 @@ fun InitialMessageScreen(viewModel: InitialMessageViewModel, onClick: () -> Unit
 fun ScreenBody(
     messageInitial: InitialMessageUiState,
     onCheckedChanged: (Boolean) -> Unit,
-    onClick: () -> Unit
+    onNextButton: () -> Unit
 ) {
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -50,7 +51,7 @@ fun ScreenBody(
             modifier = Modifier.weight(0.3f),
             messageInitial.isChecked,
             onCheckedChanged = onCheckedChanged,
-            onClick = onClick
+            onClick = onNextButton
         )
     }
 }
@@ -66,7 +67,9 @@ fun AnimationInLottie(modifier: Modifier = Modifier, lottieAnim: Int) {
 @Composable
 fun MessageContent(modifier: Modifier = Modifier, message: Message) {
     Column(
-        modifier = modifier.fillMaxWidth().padding(4.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(4.dp),
         verticalArrangement = Arrangement.SpaceAround,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -92,7 +95,9 @@ fun ButtonActions(
     onClick: () -> Unit
 ) {
     Row(
-        modifier = modifier.fillMaxWidth().padding(4.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(4.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
