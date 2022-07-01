@@ -16,7 +16,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.Message
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.Message
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.components.LottieAnimationApp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
@@ -45,7 +46,7 @@ fun ScreenBody(
 ) {
 
     Column(modifier = Modifier.fillMaxSize()) {
-        AnimationInLottie(modifier = Modifier.weight(1f), messageInitial.message.lottieAnim)
+        LottieAnimationApp(modifier = Modifier.weight(1f), messageInitial.message.lottieAnim)
         MessageContent(modifier = Modifier.weight(0.7f), messageInitial.message)
         ButtonActions(
             modifier = Modifier.weight(0.3f),
@@ -53,14 +54,6 @@ fun ScreenBody(
             onCheckedChanged = onCheckedChanged,
             onClick = onNextButton
         )
-    }
-}
-
-@Composable
-fun AnimationInLottie(modifier: Modifier = Modifier, lottieAnim: Int) {
-    Box(modifier = modifier) {
-        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(lottieAnim))
-        LottieAnimation(composition = composition, iterations = LottieConstants.IterateForever)
     }
 }
 

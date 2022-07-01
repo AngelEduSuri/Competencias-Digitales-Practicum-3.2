@@ -1,7 +1,7 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.data.service.impl
 
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.service.AuthService
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.UserAuthResponse
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.UserAuthResponse
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.AuthCredential

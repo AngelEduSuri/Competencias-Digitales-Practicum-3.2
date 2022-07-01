@@ -1,8 +1,8 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.data.sources
 
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.Message
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.UserActions
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.Message
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.Syllabus
 import javax.inject.Inject
 
 class StaticDataSource @Inject constructor() {
@@ -16,8 +16,10 @@ class StaticDataSource @Inject constructor() {
                 "instantánea, etc.",
     )
 
-    val menuUser = listOf(
-        UserActions(title = "Instruime", R.drawable.learn, false),
-        UserActions(title = "Evaluarme", R.drawable.test, false)
+    val syllabusList = listOf(
+        Syllabus(icon = R.drawable.file_icon, title = "¿Qué son los archivos?", isComplete = false),
+        Syllabus(icon = R.drawable.file_type_icon, title = "Tipos de archivos", isComplete = false),
+        Syllabus(icon = R.drawable.file_tools_icon, title = "Herramientas digitales", isComplete = false),
+        Syllabus(icon = R.drawable.file_shrare_icon, title = "Compartir archivos", isComplete = false)
     )
 }

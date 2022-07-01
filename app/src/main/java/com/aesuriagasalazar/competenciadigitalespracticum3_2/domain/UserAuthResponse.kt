@@ -1,4 +1,4 @@
-package com.aesuriagasalazar.competenciadigitalespracticum3_2.model
+package com.aesuriagasalazar.competenciadigitalespracticum3_2.domain
 
 sealed class UserAuthResponse<out T> {
     object Loading : UserAuthResponse<Nothing>()

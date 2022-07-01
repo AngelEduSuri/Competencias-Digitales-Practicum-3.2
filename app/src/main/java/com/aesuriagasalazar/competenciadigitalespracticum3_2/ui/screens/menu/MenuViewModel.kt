@@ -1,12 +1,10 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.menu
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.repositories.UserRepository
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.sources.StaticDataSource
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.UserActions
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.UserAuthResponse
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.UserAuthResponse
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.navigation.RoutesApp
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.AuthCredential
@@ -21,16 +19,11 @@ import javax.inject.Inject
 @HiltViewModel
 class MenuViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    staticDataSource: StaticDataSource,
     val oneTapClient: SignInClient
 ) :
     ViewModel() {
 
-    private val _uiState = MutableStateFlow(
-        MenuUiState(
-            buttons = staticDataSource.menuUser
-        )
-    )
+    private val _uiState = MutableStateFlow(MenuUiState())
 
     val uiState: StateFlow<MenuUiState> = _uiState.asStateFlow()
 
@@ -46,14 +39,6 @@ class MenuViewModel @Inject constructor(
         }
         userRepository.userLoginState().collect { authState ->
             _uiState.update { it.copy(isSignIn = authState) }
-        }
-    }
-
-    fun onButtonAction(button: UserActions, onLearnClick: () -> Unit, onTestClick: () -> Unit) {
-        if (button == _uiState.value.buttons[0]) {
-            onLearnClick()
-        } else {
-            onTestClick()
         }
     }
 
@@ -101,16 +86,29 @@ class MenuViewModel @Inject constructor(
     fun onCloseShowingSignOutMessage() {
         _uiState.update { it.copy(showCloseSessionMessage = false) }
     }
+
+    fun onLearnClick(onNextScreen: (String) -> Unit) {
+        onNextScreen(RoutesApp.Syllabus.route)
+    }
+
+    fun onTestClick(onNextScreen: (String) -> Unit) {
+        onNextScreen(RoutesApp.Test.route)
+    }
+
+    fun onResultClick(onNextScreen: (String) -> Unit) {
+        onNextScreen(RoutesApp.Result.route)
+    }
 }
 
 data class MenuUiState(
     val name: String = "",
     val isSignIn: Boolean = false,
     val isEditName: Boolean = false,
-    val buttons: List<UserActions> = emptyList(),
     val onTapSignIn: UserAuthResponse<BeginSignInResult> = UserAuthResponse.Success(null),
     val showCloseSessionMessage: Boolean = false,
-    val showMessageIfUserIsLogged: Boolean = false
+    val showMessageIfUserIsLogged: Boolean = false,
+    val isLessonComplete: Boolean = false,
+    val isTestComplete: Boolean = false
 )
 
 

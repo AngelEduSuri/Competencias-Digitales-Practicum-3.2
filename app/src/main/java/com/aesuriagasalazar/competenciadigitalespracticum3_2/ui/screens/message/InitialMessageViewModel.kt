@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.sources.StaticDataSource
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.repositories.LocalDataRepository
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.Message
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.Message
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.navigation.RoutesApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

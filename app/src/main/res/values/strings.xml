@@ -11,4 +11,6 @@
     <string name="sign_out">Cerrar Sesión</string>
     <string name="login_success">Ingreso del usuario con éxito</string>
     <string name="logout_success">Cerrar sesión con exito</string>
+    <string name="learn_title">Instruirme</string>
+    <string name="test_title">Evaluarme</string>
 </resources>

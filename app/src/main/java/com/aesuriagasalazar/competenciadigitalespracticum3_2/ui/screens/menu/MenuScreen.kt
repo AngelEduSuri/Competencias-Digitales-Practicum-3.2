@@ -5,10 +5,11 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -19,6 +20,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -31,8 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.common.PrintLog
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.UserActions
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.UserAuthResponse
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.UserAuthResponse
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.ProgressIndicatorApp
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.components.ButtonApp
 import com.google.android.gms.auth.api.identity.BeginSignInResult
@@ -41,9 +42,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 
 @Composable
 fun MenuScreen(
-    onLearnClick: () -> Unit,
-    onTestClick: () -> Unit,
-    onResultClick: () -> Unit,
+    onNextScreen: (String) -> Unit,
     viewModel: MenuViewModel = hiltViewModel()
 ) {
 
@@ -52,14 +51,9 @@ fun MenuScreen(
 
     MenuBody(
         userMenu = userMenu,
-        onButtonClick = {
-            viewModel.onButtonAction(
-                button = it,
-                onLearnClick = onLearnClick,
-                onTestClick = onTestClick
-            )
-        },
-        onResultClick = onResultClick,
+        onResultClick = { viewModel.onResultClick { onNextScreen(it) } },
+        onLearnClick = { viewModel.onLearnClick { onNextScreen(it) } },
+        onTestClick = { viewModel.onTestClick { onNextScreen(it) } },
         onEditUserNameClick = viewModel::onEditUserName,
         onEditUserNameDoneClick = viewModel::onEditUserNameDone,
         onUserNameTextChanged = viewModel::onNameChanged,
@@ -93,6 +87,11 @@ fun MenuScreen(
             } else {
                 // El usuario no permitio el acceso a su cuenta de google o cerro el dialog de acceso
                 // Implementar logica necesaria
+                Toast.makeText(
+                    context,
+                    "No se dio permiso de acceso a su cuenta",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -115,6 +114,11 @@ fun MenuScreen(
                 if (it.message == "16: Cannot find a matching credential.") {
                     //No existe cuenta vinculada de google
                     //Logica necesaria
+                    Toast.makeText(
+                        context,
+                        "No existe una cuenta de Google disponible en el dispositivo",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
@@ -124,7 +128,8 @@ fun MenuScreen(
 @Composable
 fun MenuBody(
     userMenu: MenuUiState,
-    onButtonClick: (UserActions) -> Unit,
+    onLearnClick: () -> Unit,
+    onTestClick: () -> Unit,
     onResultClick: () -> Unit,
     onEditUserNameClick: () -> Unit,
     onEditUserNameDoneClick: () -> Unit,
@@ -146,8 +151,10 @@ fun MenuBody(
         )
         MenuActions(
             modifier = Modifier.fillMaxSize(),
-            buttons = userMenu.buttons,
-            onButtonClick = onButtonClick,
+            isLessonComplete = userMenu.isLessonComplete,
+            isTestComplete = userMenu.isTestComplete,
+            onLearnClick = onLearnClick,
+            onTestClick = onTestClick,
             onResultClick = onResultClick
         )
     }
@@ -274,8 +281,10 @@ private fun ShowUserMetadata(
 @Composable
 fun MenuActions(
     modifier: Modifier = Modifier,
-    buttons: List<UserActions>,
-    onButtonClick: (UserActions) -> Unit,
+    isLessonComplete: Boolean,
+    isTestComplete: Boolean,
+    onLearnClick: () -> Unit,
+    onTestClick: () -> Unit,
     onResultClick: () -> Unit
 ) {
     Surface(
@@ -295,8 +304,24 @@ fun MenuActions(
             ),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            items(buttons) {
-                ButtonMenu(userActions = it, onClick = { onButtonClick(it) })
+            item {
+                ButtonMenu(
+                    title = R.string.learn_title,
+                    image = R.drawable.learn,
+                    isComplete = isLessonComplete,
+                    onClick = onLearnClick,
+                    onTestEnabled = true
+                )
+            }
+
+            item {
+                ButtonMenu(
+                    title = R.string.test_title,
+                    image = R.drawable.test,
+                    isComplete = isTestComplete,
+                    onClick = onTestClick,
+                    onTestEnabled = isLessonComplete
+                )
             }
 
             item {
@@ -317,13 +342,18 @@ fun MenuActions(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ButtonMenu(
-    userActions: UserActions,
+    @StringRes title: Int,
+    @DrawableRes image: Int,
+    isComplete: Boolean,
+    onTestEnabled: Boolean = false,
     onClick: () -> Unit
 ) {
     Card(
         onClick = onClick,
         elevation = 8.dp,
-        shape = MaterialTheme.shapes.small
+        shape = MaterialTheme.shapes.small,
+        enabled = onTestEnabled,
+        modifier = Modifier.alpha(if (onTestEnabled) 1.0f else 0.8f)
     ) {
         Box(
             modifier = Modifier
@@ -333,19 +363,19 @@ fun ButtonMenu(
         ) {
             Image(
                 modifier = Modifier.fillMaxWidth(),
-                painter = painterResource(id = userActions.image),
-                contentDescription = userActions.title,
+                painter = painterResource(id = image),
+                contentDescription = stringResource(id = title),
                 contentScale = ContentScale.Crop
             )
             Text(
                 modifier = Modifier.align(alignment = Alignment.BottomCenter),
-                text = userActions.title,
+                text = stringResource(id = title),
                 style = MaterialTheme.typography.h4.copy(color = Color.White),
                 fontWeight = FontWeight.Bold
             )
             Checkbox(
                 modifier = Modifier.padding(start = 8.dp, top = 8.dp),
-                checked = userActions.isComplete,
+                checked = isComplete,
                 onCheckedChange = null,
                 enabled = false
             )

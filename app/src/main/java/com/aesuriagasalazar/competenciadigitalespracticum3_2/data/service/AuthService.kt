@@ -1,6 +1,6 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.data.service
 
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.model.UserAuthResponse
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.UserAuthResponse
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.firebase.auth.AuthCredential
 import kotlinx.coroutines.flow.Flow
