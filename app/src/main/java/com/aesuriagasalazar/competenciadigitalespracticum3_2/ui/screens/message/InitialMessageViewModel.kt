@@ -2,9 +2,7 @@ package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.message
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.sources.StaticDataSource
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.repositories.LocalDataRepository
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.Message
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.navigation.RoutesApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,17 +14,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class InitialMessageViewModel @Inject constructor(
-    private val localDataRepository: LocalDataRepository,
-    staticDataSource: StaticDataSource
+    private val localDataRepository: LocalDataRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(
-        InitialMessageUiState(
-            message = staticDataSource.initialMessage,
-            isChecked = false
-        )
-    )
-
+    private val _uiState = MutableStateFlow(InitialMessageUiState(isChecked = false))
     val uiState: StateFlow<InitialMessageUiState> = _uiState.asStateFlow()
 
     fun onCheckChanged(value: Boolean) {
@@ -42,6 +33,5 @@ class InitialMessageViewModel @Inject constructor(
 }
 
 data class InitialMessageUiState(
-    val message: Message,
     val isChecked: Boolean = false
 )

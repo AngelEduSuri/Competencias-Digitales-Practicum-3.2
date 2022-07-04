@@ -1,0 +1,61 @@
+package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.introduction
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.components.LottieAnimationApp
+
+@Composable
+fun IntroductionScreen(
+    viewModel: IntroductionViewModel = hiltViewModel(),
+    onNavigate: (String?) -> Unit
+) {
+
+    val uiState = viewModel.uiState.collectAsState().value
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(all = 8.dp),
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+
+        Text(
+            text = uiState.topic.title,
+            style = MaterialTheme.typography.h5,
+            fontWeight = FontWeight.Bold
+        )
+
+        LottieAnimationApp(
+            lottieAnim = uiState.topic.lottieAnim,
+            modifier = Modifier.weight(weight = 0.6f)
+        )
+
+        Text(
+            modifier = Modifier.weight(weight = 0.4f),
+            text = uiState.topic.body,
+            style = MaterialTheme.typography.h6,
+            textAlign = TextAlign.Justify
+        )
+
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { viewModel.onNavigateScreen(onNavigate) }
+        ) {
+            Text(text = stringResource(if (uiState.isContentEmpty) R.string.back_screen else R.string.start_lesson))
+        }
+    }
+}
+

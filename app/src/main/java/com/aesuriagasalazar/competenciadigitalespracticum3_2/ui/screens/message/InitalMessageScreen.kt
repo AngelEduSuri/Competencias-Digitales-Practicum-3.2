@@ -7,7 +7,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -16,12 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.Message
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.components.LottieAnimationApp
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.rememberLottieComposition
 
 @Composable
 fun InitialMessageScreen(
@@ -46,8 +40,15 @@ fun ScreenBody(
 ) {
 
     Column(modifier = Modifier.fillMaxSize()) {
-        LottieAnimationApp(modifier = Modifier.weight(1f), messageInitial.message.lottieAnim)
-        MessageContent(modifier = Modifier.weight(0.7f), messageInitial.message)
+        LottieAnimationApp(
+            modifier = Modifier.weight(1f),
+            R.raw.initial_message_lottie
+        )
+        MessageContent(
+            modifier = Modifier.weight(0.7f),
+            title = stringResource(id = R.string.initial_message_title),
+            message = stringResource(id = R.string.initial_message_body)
+        )
         ButtonActions(
             modifier = Modifier.weight(0.3f),
             messageInitial.isChecked,
@@ -58,7 +59,11 @@ fun ScreenBody(
 }
 
 @Composable
-fun MessageContent(modifier: Modifier = Modifier, message: Message) {
+fun MessageContent(
+    modifier: Modifier = Modifier,
+    title: String,
+    message: String
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -67,13 +72,13 @@ fun MessageContent(modifier: Modifier = Modifier, message: Message) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = message.title,
+            text = title,
             style = MaterialTheme.typography.h5,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
         Text(
-            text = message.body,
+            text = message,
             style = MaterialTheme.typography.body1,
             textAlign = TextAlign.Justify
         )
