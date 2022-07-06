@@ -17,4 +17,7 @@
     <string name="initial_message_body">Esta aplicación fue desarrollada con el objetivo de enseñarle al usuario los pasos básicos para compartir contenido por medio de herramientas digitales, tales como: redes sociales, correo electrónico, mensajería instantánea, etc.</string>
     <string name="start_lesson">Empezar</string>
     <string name="back_screen">Regresar</string>
+    <string name="title_syllabus">Temario</string>
+    <string name="next_lesson">Siguiente</string>
+    <string name="back_lesson">Atrás</string>
 </resources>

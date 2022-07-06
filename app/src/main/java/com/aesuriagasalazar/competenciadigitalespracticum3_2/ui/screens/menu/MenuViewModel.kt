@@ -20,11 +20,9 @@ import javax.inject.Inject
 class MenuViewModel @Inject constructor(
     private val userRepository: UserRepository,
     val oneTapClient: SignInClient
-) :
-    ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MenuUiState())
-
     val uiState: StateFlow<MenuUiState> = _uiState.asStateFlow()
 
     init {
@@ -85,6 +83,10 @@ class MenuViewModel @Inject constructor(
 
     fun onCloseShowingSignOutMessage() {
         _uiState.update { it.copy(showCloseSessionMessage = false) }
+    }
+
+    fun resetOnTapSignIn() {
+        _uiState.update { it.copy(onTapSignIn = UserAuthResponse.Success(null)) }
     }
 
     fun onLearnClick(onNextScreen: (String) -> Unit) {

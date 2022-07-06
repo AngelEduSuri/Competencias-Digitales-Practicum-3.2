@@ -1,5 +1,6 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.data.service.impl
 
+import android.util.Log
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.service.AuthService
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.UserAuthResponse
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -33,7 +34,7 @@ class AuthServiceImpl @Inject constructor(
         emit(UserAuthResponse.Loading)
         val task = oneTapClient.beginSignIn(beginSignInRequest).await()
         emit(UserAuthResponse.Success(task))
-    }.catch { emit(UserAuthResponse.Failure(Exception(it))) }
+    }.catch { emit(UserAuthResponse.Failure(it as Exception)) }
 
     override fun createUserInFirebaseWithGoogleAccount(credential: AuthCredential) = flow {
         auth.signInWithCredential(credential).await()

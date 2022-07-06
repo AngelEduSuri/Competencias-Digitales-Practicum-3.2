@@ -1,6 +1,7 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.menu
 
 import android.app.Activity.RESULT_OK
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
@@ -35,7 +36,8 @@ import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.common.PrintLog
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.UserAuthResponse
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.ProgressIndicatorApp
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.components.ButtonApp
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.ButtonApp
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.SurfaceApp
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
@@ -49,17 +51,21 @@ fun MenuScreen(
     val userMenu = viewModel.uiState.collectAsState().value
     val context = LocalContext.current
 
-    MenuBody(
-        userMenu = userMenu,
-        onResultClick = { viewModel.onResultClick { onNextScreen(it) } },
-        onLearnClick = { viewModel.onLearnClick { onNextScreen(it) } },
-        onTestClick = { viewModel.onTestClick { onNextScreen(it) } },
-        onEditUserNameClick = viewModel::onEditUserName,
-        onEditUserNameDoneClick = viewModel::onEditUserNameDone,
-        onUserNameTextChanged = viewModel::onNameChanged,
-        onSignInWithGoogle = viewModel::onSignInWithGoogleAccount,
-        onSignOutFromGoogle = viewModel::onSignOutFromAccount
-    )
+    Log.i("leer", "view: ${userMenu.onTapSignIn}")
+
+    SurfaceApp {
+        MenuBody(
+            userMenu = userMenu,
+            onResultClick = { viewModel.onResultClick { onNextScreen(it) } },
+            onLearnClick = { viewModel.onLearnClick { onNextScreen(it) } },
+            onTestClick = { viewModel.onTestClick { onNextScreen(it) } },
+            onEditUserNameClick = viewModel::onEditUserName,
+            onEditUserNameDoneClick = viewModel::onEditUserNameDone,
+            onUserNameTextChanged = viewModel::onNameChanged,
+            onSignInWithGoogle = viewModel::onSignInWithGoogleAccount,
+            onSignOutFromGoogle = viewModel::onSignOutFromAccount
+        )
+    }
 
     if (userMenu.showMessageIfUserIsLogged) {
         Toast.makeText(context, stringResource(R.string.login_success), Toast.LENGTH_SHORT).show()
@@ -87,6 +93,7 @@ fun MenuScreen(
             } else {
                 // El usuario no permitio el acceso a su cuenta de google o cerro el dialog de acceso
                 // Implementar logica necesaria
+                PrintLog.print("authScreen: result: ", "No se dio permiso de acceso a la cuenta")
                 Toast.makeText(
                     context,
                     "No se dio permiso de acceso a su cuenta",
@@ -114,11 +121,13 @@ fun MenuScreen(
                 if (it.message == "16: Cannot find a matching credential.") {
                     //No existe cuenta vinculada de google
                     //Logica necesaria
+                    Log.i("leer", "Cuenta de google no disponible")
                     Toast.makeText(
                         context,
                         "No existe una cuenta de Google disponible en el dispositivo",
                         Toast.LENGTH_SHORT
                     ).show()
+                    viewModel.resetOnTapSignIn()
                 }
             }
         }

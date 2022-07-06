@@ -1,4 +1,4 @@
-package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.components
+package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer

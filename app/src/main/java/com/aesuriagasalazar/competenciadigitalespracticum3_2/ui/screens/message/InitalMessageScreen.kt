@@ -1,10 +1,7 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.message
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Checkbox
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -15,7 +12,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.components.LottieAnimationApp
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.LottieAnimationApp
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.SurfaceApp
 
 @Composable
 fun InitialMessageScreen(
@@ -25,11 +23,13 @@ fun InitialMessageScreen(
 
     val messageInitial = viewModel.uiState.collectAsState().value
 
-    ScreenBody(
-        messageInitial = messageInitial,
-        onCheckedChanged = viewModel::onCheckChanged,
-        onNextButton = { viewModel.onSaveCheckAndNavigate(onMenuScreen = onNextButtonClick) }
-    )
+    SurfaceApp {
+        ScreenBody(
+            messageInitial = messageInitial,
+            onCheckedChanged = viewModel::onCheckChanged,
+            onNextButton = { viewModel.onSaveCheckAndNavigate(onMenuScreen = onNextButtonClick) }
+        )
+    }
 }
 
 @Composable

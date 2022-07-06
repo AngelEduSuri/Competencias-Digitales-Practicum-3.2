@@ -10,50 +10,67 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.Syllabus
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.theme.AppTheme
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TopicSyllabusId
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.SurfaceApp
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.TopBarApplication
 
 @Composable
 fun SyllabusScreen(
     viewModel: SyllabusViewModel = hiltViewModel(),
-    onNextScreen: (Int) -> Unit
+    onNextScreen: (TopicSyllabusId) -> Unit,
+    onBackPressed: () -> Unit
 ) {
 
     val uiState = viewModel.syllabusUiState.collectAsState().value
 
-    SyllabusScreenBody(uiState = uiState, onItemClick = {
-        onNextScreen(it)
-    })
-
+    SurfaceApp {
+        SyllabusScreenBody(
+            uiState = uiState,
+            onItemClick = { onNextScreen(it) },
+            onBackPressed = onBackPressed
+        )
+    }
 }
 
 @Composable
 fun SyllabusScreenBody(
     uiState: SyllabusUiState,
-    onItemClick: (Int) -> Unit
+    onItemClick: (TopicSyllabusId) -> Unit,
+    onBackPressed: () -> Unit
 ) {
+    Column {
+        TopBarApplication(
+            title = stringResource(R.string.title_syllabus),
+            contentDescriptionNav = stringResource(id = R.string.back_screen),
+            onBackPressed = onBackPressed
+        )
 
-    LazyColumn(
-        contentPadding = PaddingValues(all = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(space = 8.dp)
-    ) {
-        items(uiState.listSyllabus) {
-            SyllabusTheme(theme = it, onClick = { onItemClick(it.id) })
+        LazyColumn(
+            contentPadding = PaddingValues(all = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(space = 8.dp)
+        ) {
+            items(uiState.listSyllabus) {
+                SyllabusTopic(theme = it, onClick = { onItemClick(it.id) })
+            }
         }
     }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SyllabusTheme(theme: Syllabus, onClick: () -> Unit) {
+fun SyllabusTopic(theme: Syllabus, onClick: () -> Unit) {
 
-    Card(onClick = onClick, backgroundColor = MaterialTheme.colors.primary) {
+    Card(
+        onClick = onClick,
+        backgroundColor = MaterialTheme.colors.primaryVariant
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -81,22 +98,5 @@ fun SyllabusTheme(theme: Syllabus, onClick: () -> Unit) {
                 onCheckedChange = null
             )
         }
-    }
-}
-
-@Preview
-@Composable
-fun SyllabusThemePreview() {
-
-    AppTheme {
-        SyllabusTheme(
-            theme = Syllabus(
-                1,
-                R.drawable.file_shrare_icon,
-                "Tipos de archivos",
-                false
-            ),
-            onClick = {}
-        )
     }
 }

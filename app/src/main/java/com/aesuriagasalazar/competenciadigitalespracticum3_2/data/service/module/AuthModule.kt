@@ -43,7 +43,6 @@ class AuthModule {
                 .setServerClientId(app.getString(R.string.client_id))
                 .setFilterByAuthorizedAccounts(false)
                 .build())
-        //.setAutoSelectEnabled(true)
         .build()
 
     @Provides
