@@ -6,9 +6,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -18,8 +20,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.Syllabus
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TopicSyllabusId
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.DialogApp
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.SurfaceApp
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.TopBarApplication
+import com.airbnb.lottie.compose.LottieConstants
 
 @Composable
 fun SyllabusScreen(
@@ -34,17 +38,27 @@ fun SyllabusScreen(
         SyllabusScreenBody(
             uiState = uiState,
             onItemClick = { onNextScreen(it) },
-            onBackPressed = onBackPressed
+            onBackPressed = onBackPressed,
+            onCloseDialog = viewModel::onCloseDialogMessage
         )
     }
+
+    SideEffect {
+        viewModel.checkIfTopicIsComplete()
+    }
+
 }
 
 @Composable
 fun SyllabusScreenBody(
     uiState: SyllabusUiState,
     onItemClick: (TopicSyllabusId) -> Unit,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onCloseDialog: () -> Unit
 ) {
+
+    val screenSize = LocalConfiguration.current.screenHeightDp
+
     Column {
         TopBarApplication(
             title = stringResource(R.string.title_syllabus),
@@ -59,6 +73,17 @@ fun SyllabusScreenBody(
             items(uiState.listSyllabus) {
                 SyllabusTopic(theme = it, onClick = { onItemClick(it.id) })
             }
+        }
+
+        if (uiState.showDialogMessage) {
+            DialogApp(
+                titleBar = stringResource(id = R.string.congratulation_message),
+                messageBody = stringResource(id = R.string.lesson_complete_message),
+                titleButtonAccept = stringResource(id = R.string.accept),
+                dialogSize = (screenSize / 2).dp,
+                lottieAnimationBody = R.raw.congratulation_animation,
+                onCloseDialog = onCloseDialog,
+            )
         }
     }
 }

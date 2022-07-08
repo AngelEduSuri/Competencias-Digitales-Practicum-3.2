@@ -3,6 +3,7 @@ package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.lesson
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.sources.StaticDataSource
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.Lesson
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TopicSyllabusId
@@ -56,7 +57,10 @@ class LessonViewModel @Inject constructor(
             }
             updateLessonState()
         } else {
-            onFinishLesson(RoutesApp.LessonFinished.route, RoutesApp.Syllabus.route)
+            onFinishLesson(
+                RoutesApp.LessonFinished.createRoute(uiState.value.currentLesson.id),
+                RoutesApp.Syllabus.route
+            )
         }
     }
 
@@ -79,6 +83,11 @@ class LessonViewModel @Inject constructor(
 data class LessonUiState(
     val titleBar: String = "",
     val lessonIndex: Int = 0,
-    val currentLesson: Lesson = Lesson(TopicSyllabusId.NONE, 0, "", ""),
+    val currentLesson: Lesson = Lesson(
+        TopicSyllabusId.NONE,
+        R.drawable.icon_error,
+        "",
+        ""
+    ),
     val listLesson: List<Lesson> = emptyList()
 )

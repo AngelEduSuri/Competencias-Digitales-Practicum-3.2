@@ -24,4 +24,6 @@ class UserRepository @Inject constructor(
         authService.createUserInFirebaseWithGoogleAccount(googleCredentials)
 
     fun signOutAccount() = authService.signOut()
+
+    suspend fun getAllTopicsIsCompleted() = localDataRepository.getAllTopicsIsCompleted()
 }

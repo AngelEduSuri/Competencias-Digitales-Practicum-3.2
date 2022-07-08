@@ -60,7 +60,10 @@ fun SplashIconApp(modifier: Modifier = Modifier) {
 fun SplashAnimationLottie(
     modifier: Modifier = Modifier,
 ) {
-    Box(modifier = modifier.fillMaxWidth()) {
+    Box(
+        modifier = modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
         val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_splash_screen))
         LottieAnimation(composition = composition)
     }

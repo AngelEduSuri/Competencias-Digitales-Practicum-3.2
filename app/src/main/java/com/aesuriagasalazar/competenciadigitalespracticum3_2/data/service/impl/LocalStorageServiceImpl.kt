@@ -14,6 +14,8 @@ private const val TOPIC_FILE = "topic_file"
 private const val TOPIC_TYPE_FILE = "topic_type_file"
 private const val TOPIC_DIGITAL_TOOLS = "topic_digital_tools"
 private const val TOPIC_SHARE_FILES = "topic_share_files"
+private const val DIALOG_MESSAGE_TOPICS = "dialog_message_topic"
+private const val ALL_TOPICS_COMPLETED = "all_topics_completed"
 
 class LocalStorageServiceImpl @Inject constructor(@ApplicationContext private val context: Context) :
     LocalStorageService {
@@ -58,6 +60,18 @@ class LocalStorageServiceImpl @Inject constructor(@ApplicationContext private va
     }
 
     override suspend fun getTopicShareFilesIsComplete() = TOPIC_SHARE_FILES.getBoolean()
+
+    override suspend fun saveIfMessageDialogShouldShowing(isShow: Boolean) {
+        DIALOG_MESSAGE_TOPICS.saveBoolean(isShow)
+    }
+
+    override suspend fun getIfMessageDialogShouldShowing() = DIALOG_MESSAGE_TOPICS.getBoolean()
+
+    override suspend fun saveIfAllTopicsIsCompleted(isComplete: Boolean) {
+        ALL_TOPICS_COMPLETED.saveBoolean(isComplete)
+    }
+
+    override suspend fun getIfAllTopicIsCompleted() = ALL_TOPICS_COMPLETED.getBoolean()
 
     // Set and get values in shared preferences
 

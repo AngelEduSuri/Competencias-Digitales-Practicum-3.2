@@ -14,4 +14,8 @@ interface LocalStorageService {
     suspend fun getTopicDigitalToolsIsComplete(): Boolean
     suspend fun saveTopicShareFilesComplete(isComplete: Boolean)
     suspend fun getTopicShareFilesIsComplete(): Boolean
+    suspend fun saveIfMessageDialogShouldShowing(isShow: Boolean)
+    suspend fun getIfMessageDialogShouldShowing(): Boolean
+    suspend fun saveIfAllTopicsIsCompleted(isComplete: Boolean)
+    suspend fun getIfAllTopicIsCompleted(): Boolean
 }

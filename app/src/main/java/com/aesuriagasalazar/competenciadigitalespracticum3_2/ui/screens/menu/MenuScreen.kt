@@ -1,7 +1,6 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.menu
 
 import android.app.Activity.RESULT_OK
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
@@ -18,6 +17,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,10 +33,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.common.PrintLog
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.UserAuthResponse
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.ProgressIndicatorApp
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.ButtonApp
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.ProgressIndicatorApp
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.SurfaceApp
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.common.api.ApiException
@@ -51,8 +50,6 @@ fun MenuScreen(
     val userMenu = viewModel.uiState.collectAsState().value
     val context = LocalContext.current
 
-    Log.i("leer", "view: ${userMenu.onTapSignIn}")
-
     SurfaceApp {
         MenuBody(
             userMenu = userMenu,
@@ -65,6 +62,10 @@ fun MenuScreen(
             onSignInWithGoogle = viewModel::onSignInWithGoogleAccount,
             onSignOutFromGoogle = viewModel::onSignOutFromAccount
         )
+    }
+
+    SideEffect {
+        viewModel.updateIfAllTopicsIsCompleted()
     }
 
     if (userMenu.showMessageIfUserIsLogged) {
@@ -88,18 +89,18 @@ fun MenuScreen(
                     val googleCredentials = GoogleAuthProvider.getCredential(googleIdToken, null)
                     viewModel.onCreateUserInFirebase(googleCredentials)
                 } catch (it: ApiException) {
-                    PrintLog.print("authScreen: result", it)
+                    // Error
                 }
             } else {
                 // El usuario no permitio el acceso a su cuenta de google o cerro el dialog de acceso
                 // Implementar logica necesaria
-                PrintLog.print("authScreen: result: ", "No se dio permiso de acceso a la cuenta")
                 Toast.makeText(
                     context,
                     "No se dio permiso de acceso a su cuenta",
                     Toast.LENGTH_SHORT
                 ).show()
             }
+            viewModel.resetOnTapSignIn()
         }
 
     fun launchIntent(signInResult: BeginSignInResult) {
@@ -121,7 +122,6 @@ fun MenuScreen(
                 if (it.message == "16: Cannot find a matching credential.") {
                     //No existe cuenta vinculada de google
                     //Logica necesaria
-                    Log.i("leer", "Cuenta de google no disponible")
                     Toast.makeText(
                         context,
                         "No existe una cuenta de Google disponible en el dispositivo",
@@ -319,7 +319,7 @@ fun MenuActions(
                     image = R.drawable.learn,
                     isComplete = isLessonComplete,
                     onClick = onLearnClick,
-                    onTestEnabled = true
+                    onButtonEnabled = true
                 )
             }
 
@@ -329,7 +329,7 @@ fun MenuActions(
                     image = R.drawable.test,
                     isComplete = isTestComplete,
                     onClick = onTestClick,
-                    onTestEnabled = isLessonComplete
+                    onButtonEnabled = isLessonComplete
                 )
             }
 
@@ -354,15 +354,15 @@ fun ButtonMenu(
     @StringRes title: Int,
     @DrawableRes image: Int,
     isComplete: Boolean,
-    onTestEnabled: Boolean = false,
+    onButtonEnabled: Boolean = false,
     onClick: () -> Unit
 ) {
     Card(
         onClick = onClick,
         elevation = 8.dp,
         shape = MaterialTheme.shapes.small,
-        enabled = onTestEnabled,
-        modifier = Modifier.alpha(if (onTestEnabled) 1.0f else 0.8f)
+        enabled = onButtonEnabled,
+        modifier = Modifier.alpha(if (onButtonEnabled) 1.0f else 0.8f)
     ) {
         Box(
             modifier = Modifier

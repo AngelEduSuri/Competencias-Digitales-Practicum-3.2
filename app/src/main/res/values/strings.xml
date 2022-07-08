@@ -7,7 +7,6 @@
     <string name="edit_name">editar nombre</string>
     <string name="login_google">Iniciar con Google</string>
     <string name="icon_splash_description">icono de pantalla de inicio</string>
-    <string name="client_id">747793282874-4uq9bb7en7ftithmnuch5ttr8akvf4mk.apps.googleusercontent.com</string>
     <string name="sign_out">Cerrar Sesión</string>
     <string name="login_success">Ingreso del usuario con éxito</string>
     <string name="logout_success">Cerrar sesión con exito</string>
@@ -20,4 +19,12 @@
     <string name="title_syllabus">Temario</string>
     <string name="next_lesson">Siguiente</string>
     <string name="back_lesson">Atrás</string>
+    <string name="home">Inicio</string>
+    <string name="lesson_finished_title">¡Lección Terminada!</string>
+    <string name="congratulation_message">¡Curso Completado!</string>
+    <string name="lesson_complete_message">Ah finalizado todo el curso sobre como compartir contenido por medios digitales sencillos, Felicitaciones!!</string>
+    <string name="accept">Aceptar</string>
+
+
+    <string name="client_id">747793282874-4uq9bb7en7ftithmnuch5ttr8akvf4mk.apps.googleusercontent.com</string>
 </resources>

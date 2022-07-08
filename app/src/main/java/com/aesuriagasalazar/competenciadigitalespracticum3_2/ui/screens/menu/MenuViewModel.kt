@@ -77,6 +77,14 @@ class MenuViewModel @Inject constructor(
         }
     }
 
+    fun updateIfAllTopicsIsCompleted() = viewModelScope.launch {
+        _uiState.update { menuUiState ->
+            menuUiState.copy(
+                isLessonComplete = userRepository.getAllTopicsIsCompleted()
+            )
+        }
+    }
+
     fun onCloseShowingLoginMessage() {
         _uiState.update { it.copy(showMessageIfUserIsLogged = false) }
     }

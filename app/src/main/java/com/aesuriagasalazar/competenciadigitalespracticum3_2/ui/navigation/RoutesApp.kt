@@ -19,7 +19,10 @@ sealed class RoutesApp(val route: String) {
         fun createRoute(lessonId: TopicSyllabusId, titleArg: String) = "lesson/$lessonId/$titleArg"
     }
 
-    object LessonFinished : RoutesApp("finished")
+    object LessonFinished : RoutesApp("finished/{lessonId}") {
+        const val arg = "lessonId"
+        fun createRoute(lessonId: TopicSyllabusId) = "finished/$lessonId"
+    }
     object Test : RoutesApp("test")
     object Result : RoutesApp("result")
 }

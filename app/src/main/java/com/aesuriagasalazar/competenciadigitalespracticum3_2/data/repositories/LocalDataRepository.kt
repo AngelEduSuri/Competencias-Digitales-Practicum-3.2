@@ -7,15 +7,12 @@ class LocalDataRepository @Inject constructor(private val localStorageService: L
 
     suspend fun saveUserName(name: String) = localStorageService.saveUserName(name)
 
-    suspend fun getUserName(): String {
-        val name = localStorageService.getUserName()
-        return name.ifEmpty { "Usuario" }
-    }
+    suspend fun getUserName() = localStorageService.getUserName().ifEmpty { "Usuario" }
 
     suspend fun saveShowInitialMessage(isShow: Boolean) =
         localStorageService.saveShowInitialMessage(isShow)
 
-    suspend fun getShowInitialMessage(): Boolean = localStorageService.getShowInitialMessage()
+    suspend fun getShowInitialMessage() = localStorageService.getShowInitialMessage()
 
     suspend fun saveTopicFileComplete(isComplete: Boolean) =
         localStorageService.saveTopicFileComplete(isComplete)
@@ -37,4 +34,14 @@ class LocalDataRepository @Inject constructor(private val localStorageService: L
         localStorageService.saveTopicShareFilesComplete(isComplete)
 
     suspend fun getTopicShareFilesIsComplete() = localStorageService.getTopicShareFilesIsComplete()
+
+    suspend fun saveCloseDialogMessage(showDialog: Boolean) =
+        localStorageService.saveIfMessageDialogShouldShowing(showDialog)
+
+    suspend fun getCloseDialogMessage() = localStorageService.getIfMessageDialogShouldShowing()
+
+    suspend fun saveAllTopicsIsCompleted(isComplete: Boolean) =
+        localStorageService.saveIfAllTopicsIsCompleted(isComplete)
+
+    suspend fun getAllTopicsIsCompleted() = localStorageService.getIfAllTopicIsCompleted()
 }

@@ -24,11 +24,7 @@ class SyllabusViewModel @Inject constructor(
         MutableStateFlow(SyllabusUiState())
     val syllabusUiState: StateFlow<SyllabusUiState> = _syllabusUiState.asStateFlow()
 
-    init {
-        checkIfTopicIsComplete()
-    }
-
-    private fun checkIfTopicIsComplete() = viewModelScope.launch {
+    fun checkIfTopicIsComplete() = viewModelScope.launch {
         val newListState = syllabusData.getSyllabusList().map {
             when (it.id) {
                 TOPIC_FILE -> {
@@ -49,12 +45,29 @@ class SyllabusViewModel @Inject constructor(
             }
         }
 
-        _syllabusUiState.update { uiState ->
-            uiState.copy(listSyllabus = newListState)
+        _syllabusUiState.update { it.copy(listSyllabus = newListState) }
+
+        checkIfAllTopicIsCompleted()
+    }
+
+    private fun checkIfAllTopicIsCompleted() = viewModelScope.launch {
+        _syllabusUiState.update {
+            it.copy(
+                showDialogMessage = it.listSyllabus.all { syllabus ->
+                    syllabus.isComplete && !localRepository.getCloseDialogMessage()
+                },
+            )
         }
+    }
+
+    fun onCloseDialogMessage() = viewModelScope.launch {
+        localRepository.saveCloseDialogMessage(true)
+        localRepository.saveAllTopicsIsCompleted(true)
+        checkIfAllTopicIsCompleted()
     }
 }
 
 data class SyllabusUiState(
-    val listSyllabus: List<Syllabus> = emptyList()
+    val listSyllabus: List<Syllabus> = emptyList(),
+    val showDialogMessage: Boolean = false,
 )

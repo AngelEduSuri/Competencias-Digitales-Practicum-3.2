@@ -102,8 +102,13 @@ fun NavigationApp() {
             )
         }
 
-        composable(route = RoutesApp.LessonFinished.route) {
-            LessonFinishedScreen()
+        composable(
+            route = RoutesApp.LessonFinished.route,
+            arguments = listOf(navArgument(name = RoutesApp.LessonFinished.arg) {
+                type = NavType.EnumType(TopicSyllabusId::class.java)
+            })
+        ) {
+            LessonFinishedScreen(onBackScreen = { navController.popBackStack() })
         }
 
         composable(route = RoutesApp.Test.route) {
