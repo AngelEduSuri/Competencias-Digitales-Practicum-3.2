@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.UserAuthResponse
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.UserResponse
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.ButtonApp
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.ProgressIndicatorApp
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.SurfaceApp
@@ -66,6 +66,7 @@ fun MenuScreen(
 
     SideEffect {
         viewModel.updateIfAllTopicsIsCompleted()
+        viewModel.updateIfTestIsCompleted()
     }
 
     if (userMenu.showMessageIfUserIsLogged) {
@@ -109,15 +110,15 @@ fun MenuScreen(
     }
 
     when (val oneTapSignInResponse = userMenu.onTapSignIn) {
-        is UserAuthResponse.Loading -> {
+        is UserResponse.Loading -> {
             ProgressIndicatorApp()
         }
-        is UserAuthResponse.Success -> oneTapSignInResponse.result?.let {
+        is UserResponse.Success -> oneTapSignInResponse.result?.let {
             LaunchedEffect(it) {
                 launchIntent(it)
             }
         }
-        is UserAuthResponse.Failure -> oneTapSignInResponse.exception?.let {
+        is UserResponse.Failure -> oneTapSignInResponse.exception?.let {
             LaunchedEffect(Unit) {
                 if (it.message == "16: Cannot find a matching credential.") {
                     //No existe cuenta vinculada de google

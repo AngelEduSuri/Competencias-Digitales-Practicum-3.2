@@ -14,7 +14,7 @@
     <string name="test_title">Evaluarme</string>
     <string name="initial_message_title">Compartir contenido por medio de herramientas digitales sencillos</string>
     <string name="initial_message_body">Esta aplicación fue desarrollada con el objetivo de enseñarle al usuario los pasos básicos para compartir contenido por medio de herramientas digitales, tales como: redes sociales, correo electrónico, mensajería instantánea, etc.</string>
-    <string name="start_lesson">Empezar</string>
+    <string name="start_title">Empezar</string>
     <string name="back_screen">Regresar</string>
     <string name="title_syllabus">Temario</string>
     <string name="next_lesson">Siguiente</string>
@@ -27,4 +27,18 @@
 
 
     <string name="client_id">747793282874-4uq9bb7en7ftithmnuch5ttr8akvf4mk.apps.googleusercontent.com</string>
+    <string name="test_tittle">Cuestionario</string>
+    <string name="question_count">Pregunta N° %s</string>
+    <string name="test_message">Es hora de poner a prueba tus conocimientos adquiridos durante el curso. La evaluación consta de 15 preguntas cuyos temas abarcan todo el contenido visto anteriormente</string>
+    <string name="test_message_title">Tecnologías Digitales</string>
+    <string name="test_start_title">¿Deseas empezar?</string>
+    <string name="points_correct">Puntos: %s</string>
+    <string name="response_title">Responder</string>
+    <string name="anwer_empty_context">Debe seleccionar una opción</string>
+    <string name="answer_correct">Correcto</string>
+    <string name="answer_incorrect">Incorrecto</string>
+    <string name="point_tittle">Su puntaje es:</string>
+    <string name="test_finished_tittle">¡EVALUACION FINALIZADA!</string>
+    <string name="try_again_button">Intentar de nuevo</string>
+    <string name="home_button">Inicio</string>
 </resources>

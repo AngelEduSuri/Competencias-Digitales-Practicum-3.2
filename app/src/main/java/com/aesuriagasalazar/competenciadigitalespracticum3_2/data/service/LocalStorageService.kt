@@ -18,4 +18,8 @@ interface LocalStorageService {
     suspend fun getIfMessageDialogShouldShowing(): Boolean
     suspend fun saveIfAllTopicsIsCompleted(isComplete: Boolean)
     suspend fun getIfAllTopicIsCompleted(): Boolean
+    suspend fun saveUserResult(result: String)
+    suspend fun getUserResult(): String
+    suspend fun saveIfTestIsCompleted(isComplete: Boolean)
+    suspend fun getIfTestIsCompleted(): Boolean
 }

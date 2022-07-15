@@ -1,4 +1,4 @@
-package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.introduction
+package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.lessonintroduction
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -57,7 +57,7 @@ fun IntroductionScreen(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { viewModel.onNavigateScreen(onNavigate) }
                 ) {
-                    Text(text = stringResource(if (uiState.isContentEmpty) R.string.back_screen else R.string.start_lesson))
+                    Text(text = stringResource(if (uiState.isContentEmpty) R.string.back_screen else R.string.start_title))
                 }
             }
         }

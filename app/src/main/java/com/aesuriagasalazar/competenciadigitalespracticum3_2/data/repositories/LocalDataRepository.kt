@@ -1,6 +1,7 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.data.repositories
 
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.service.LocalStorageService
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TestResult
 import javax.inject.Inject
 
 class LocalDataRepository @Inject constructor(private val localStorageService: LocalStorageService) {
@@ -44,4 +45,13 @@ class LocalDataRepository @Inject constructor(private val localStorageService: L
         localStorageService.saveIfAllTopicsIsCompleted(isComplete)
 
     suspend fun getAllTopicsIsCompleted() = localStorageService.getIfAllTopicIsCompleted()
+
+    suspend fun saveUserResult(result: String) = localStorageService.saveUserResult(result)
+
+    suspend fun getUserResult() = localStorageService.getUserResult()
+
+    suspend fun saveTestCompleted(isComplete: Boolean) =
+        localStorageService.saveIfTestIsCompleted(isComplete)
+
+    suspend fun getTestCompleted() = localStorageService.getIfTestIsCompleted()
 }

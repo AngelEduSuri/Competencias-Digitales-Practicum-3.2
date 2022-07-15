@@ -88,4 +88,7 @@ dependencies {
 
     // Accompanist
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
+
+    // Firestore
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 }

@@ -16,6 +16,8 @@ private const val TOPIC_DIGITAL_TOOLS = "topic_digital_tools"
 private const val TOPIC_SHARE_FILES = "topic_share_files"
 private const val DIALOG_MESSAGE_TOPICS = "dialog_message_topic"
 private const val ALL_TOPICS_COMPLETED = "all_topics_completed"
+private const val USER_RESULT = "user_result"
+private const val TEST_COMPLETED = "test_completed"
 
 class LocalStorageServiceImpl @Inject constructor(@ApplicationContext private val context: Context) :
     LocalStorageService {
@@ -72,6 +74,18 @@ class LocalStorageServiceImpl @Inject constructor(@ApplicationContext private va
     }
 
     override suspend fun getIfAllTopicIsCompleted() = ALL_TOPICS_COMPLETED.getBoolean()
+
+    override suspend fun saveUserResult(result: String) {
+        USER_RESULT.saveString(result)
+    }
+
+    override suspend fun getUserResult() = USER_RESULT.getString() ?: ""
+
+    override suspend fun saveIfTestIsCompleted(isComplete: Boolean) {
+        TEST_COMPLETED.saveBoolean(isComplete)
+    }
+
+    override suspend fun getIfTestIsCompleted() = TEST_COMPLETED.getBoolean()
 
     // Set and get values in shared preferences
 

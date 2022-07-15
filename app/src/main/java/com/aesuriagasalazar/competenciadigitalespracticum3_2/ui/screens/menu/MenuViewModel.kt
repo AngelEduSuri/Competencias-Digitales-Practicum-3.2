@@ -3,7 +3,7 @@ package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.menu
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.repositories.UserRepository
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.UserAuthResponse
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.UserResponse
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.navigation.RoutesApp
 import com.google.android.gms.auth.api.identity.BeginSignInResult
 import com.google.android.gms.auth.api.identity.SignInClient
@@ -78,10 +78,16 @@ class MenuViewModel @Inject constructor(
     }
 
     fun updateIfAllTopicsIsCompleted() = viewModelScope.launch {
-        _uiState.update { menuUiState ->
-            menuUiState.copy(
+        _uiState.update {
+            it.copy(
                 isLessonComplete = userRepository.getAllTopicsIsCompleted()
             )
+        }
+    }
+
+    fun updateIfTestIsCompleted() = viewModelScope.launch {
+        _uiState.update {
+            it.copy(isTestComplete = userRepository.getTestCompleted())
         }
     }
 
@@ -94,7 +100,7 @@ class MenuViewModel @Inject constructor(
     }
 
     fun resetOnTapSignIn() {
-        _uiState.update { it.copy(onTapSignIn = UserAuthResponse.Success(null)) }
+        _uiState.update { it.copy(onTapSignIn = UserResponse.Success(null)) }
     }
 
     fun onLearnClick(onNextScreen: (String) -> Unit) {
@@ -102,7 +108,7 @@ class MenuViewModel @Inject constructor(
     }
 
     fun onTestClick(onNextScreen: (String) -> Unit) {
-        onNextScreen(RoutesApp.Test.route)
+        onNextScreen(RoutesApp.TestIntroduction.route)
     }
 
     fun onResultClick(onNextScreen: (String) -> Unit) {
@@ -114,7 +120,7 @@ data class MenuUiState(
     val name: String = "",
     val isSignIn: Boolean = false,
     val isEditName: Boolean = false,
-    val onTapSignIn: UserAuthResponse<BeginSignInResult> = UserAuthResponse.Success(null),
+    val onTapSignIn: UserResponse<BeginSignInResult> = UserResponse.Success(null),
     val showCloseSessionMessage: Boolean = false,
     val showMessageIfUserIsLogged: Boolean = false,
     val isLessonComplete: Boolean = false,

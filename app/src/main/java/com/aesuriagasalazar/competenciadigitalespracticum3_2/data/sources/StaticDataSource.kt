@@ -1,10 +1,7 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.data.sources
 
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.Lesson
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.MessageIntroduction
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.Syllabus
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TopicSyllabusId
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.*
 import javax.inject.Inject
 
 class StaticDataSource @Inject constructor() {
@@ -39,25 +36,25 @@ class StaticDataSource @Inject constructor() {
     fun getSyllabusList(): List<Syllabus> = syllabusList
 
     private val topicList = listOf(
-        MessageIntroduction(
+        TopicMessageIntro(
             id = TopicSyllabusId.TOPIC_FILE,
             title = "Tema - Archivos",
             lottieAnim = R.raw.introduction_message_animation,
             body = "En este tema aprenderás que son los archivos, su importancia y como compartirlos por medio de herramientas digitales como emails o redes sociales."
         ),
-        MessageIntroduction(
+        TopicMessageIntro(
             id = TopicSyllabusId.TYPE_OF_FILE,
             title = "Tema - Tipo de archivos",
             lottieAnim = R.raw.introduction_message_animation,
             body = "En esta sección, conocerás los diferentes tipos de archivos que existen."
         ),
-        MessageIntroduction(
+        TopicMessageIntro(
             id = TopicSyllabusId.DIGITAL_TOOLS,
             title = "Tema - Herramientas",
             lottieAnim = R.raw.introduction_message_animation,
             body = "Ahora que conoce los tipos de archivos que existen, en esta sección revisaremos las diferentes herramientas digitales, por donde transitan todos estos archivos diariamente."
         ),
-        MessageIntroduction(
+        TopicMessageIntro(
             id = TopicSyllabusId.SHARE_FILE,
             title = "Tema - Compartir",
             lottieAnim = R.raw.introduction_message_animation,
@@ -203,4 +200,114 @@ class StaticDataSource @Inject constructor() {
     )
 
     fun getListLessonForId(idLesson: TopicSyllabusId) = lessonList.filter { it.id == idLesson }
+
+    private val testSyllabusList = listOf(
+        TestSyllabus(
+            id = 1,
+            title = "¿Qué es un archivo?",
+            questionOne = "Un dispositivo electrónico",
+            questionTwo = "Un grupo de tareas",
+            answer = "Un contenedor de información"
+        ),
+        TestSyllabus(
+            id = 2,
+            title = "¿Cuál de las opciones son archivos?",
+            questionOne = "Facebook, Twitter, Messenger",
+            questionTwo = "Computadoras, Celulares, Laptops",
+            answer = "Imágenes, Videos, Documentos"
+        ),
+        TestSyllabus(
+            id = 3,
+            title = "¿Una imagen de qué tipo puede ser?",
+            questionOne = "MP4, AVI",
+            questionTwo = "MP3, WAV",
+            answer = "JPG, PNG"
+        ),
+        TestSyllabus(
+            id = 4,
+            title = "¿Un video qué tipo puede ser?",
+            questionOne = "JPG, PNG",
+            questionTwo = "MP3, WAV",
+            answer = "MP4, AVI"
+        ),
+        TestSyllabus(
+            id = 5,
+            title = "¿Cuál de las opciones es un tipo de audio?",
+            questionOne = "MP4, AVI",
+            questionTwo = "JPG, PNG",
+            answer = "MP3, WAV"
+        ),
+        TestSyllabus(
+            id = 6,
+            title = "¿Cuál de estas herramientas permiten compartir contenido?",
+            questionOne = "Documentos Word, Imágenes",
+            questionTwo = "Ninguna de las anteriores",
+            answer = "Correo Electrónico (email), Facebook"
+        ),
+        TestSyllabus(
+            id = 7,
+            title = "¿Cuál de las opciones es una red social?",
+            questionOne = "Correo Electrónico (email)",
+            questionTwo = "WhatsApp",
+            answer = "Facebook"
+        ),
+        TestSyllabus(
+            id = 8,
+            title = "¿Cuál de las opciones es una herramienta de mensajería?",
+            questionOne = "Telegram",
+            questionTwo = "WhatsApp",
+            answer = "Todas las anteriores"
+        ),
+        TestSyllabus(
+            id = 9,
+            title = "Si deseo compartir una foto por Facebook, ¿Este archivo qué tipo es?",
+            questionOne = "Documento",
+            questionTwo = "Video",
+            answer = "Imagen"
+        ),
+        TestSyllabus(
+            id = 10,
+            title = "Si voy a enviar un mensaje a un amigo/amiga para programar una reunión con el/ella, ¿El mensaje qué tipo es?",
+            questionOne = "Video",
+            questionTwo = "Imagen",
+            answer = "Texto"
+        ),
+        TestSyllabus(
+            id = 11,
+            title = "Si voy a compartir una grabación de voz por WhatsApp, ¿Este archivo qué tipo es?",
+            questionOne = "Video",
+            questionTwo = "Texto",
+            answer = "Audio"
+        ),
+        TestSyllabus(
+            id = 12,
+            title = "¿Cuál es la palabra que se usa cuando se comparte un archivo junto a tu mensaje?",
+            questionOne = "Grabar",
+            questionTwo = "Enviar",
+            answer = "Adjuntar"
+        ),
+        TestSyllabus(
+            id = 13,
+            title = "¿Qué es Telegram?",
+            questionOne = "Una red social",
+            questionTwo = "Un documento de Word",
+            answer = "Una aplicación de mensajería"
+        ),
+        TestSyllabus(
+            id = 14,
+            title = "¿Cuáles son los pasos para compartir un archivo como una foto o un grabación de mis vacaciones por Facebook?",
+            questionOne = "Ingreso a facebook - Busco un amigo - Selecciono el archivo a compartir",
+            questionTwo = "Ninguna de las anteriores",
+            answer = "Ingreso a facebook - Creo un publicación - Escojo la opcion Foto/Video - Selecciono el archivo y comparto"
+        ),
+        TestSyllabus(
+            id = 15,
+            title = "¿Cuáles son los pasos para enviar un audio de voz por WhatsApp a un contacto?",
+            questionOne = "Ingreso a WhatsApp - Busco un amigo/amiga - Selecciono adjuntar -  Envío el archivo",
+            questionTwo = "Ingreso a WhatsApp - Busco un amigo/amiga - Envío el archivo",
+            answer = "Ingreso a WhatsApp - Busco un amigo/amiga - Selecciono el ícono del micrófono - Empiezo a hablar"
+        )
+    )
+
+    fun getAllListQuestions() = testSyllabusList
 }

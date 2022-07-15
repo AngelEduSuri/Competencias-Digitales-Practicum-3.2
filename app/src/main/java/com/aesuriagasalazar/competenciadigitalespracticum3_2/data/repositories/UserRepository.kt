@@ -26,4 +26,8 @@ class UserRepository @Inject constructor(
     fun signOutAccount() = authService.signOut()
 
     suspend fun getAllTopicsIsCompleted() = localDataRepository.getAllTopicsIsCompleted()
+
+    fun getUserUID() = authService.getUserUID()
+
+    suspend fun getTestCompleted() = localDataRepository.getTestCompleted()
 }

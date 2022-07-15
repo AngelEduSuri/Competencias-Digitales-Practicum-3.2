@@ -8,9 +8,9 @@ sealed class RoutesApp(val route: String) {
     object InitialMessage : RoutesApp("initial")
     object MenuApp : RoutesApp("menu")
     object Syllabus : RoutesApp("syllabus")
-    object Introduction : RoutesApp("introduction/{topicId}") {
+    object LessonIntroduction : RoutesApp("test_introduction/{topicId}") {
         const val arg = "topicId"
-        fun createRoute(topicId: TopicSyllabusId) = "introduction/$topicId"
+        fun createRoute(topicId: TopicSyllabusId) = "test_introduction/$topicId"
     }
 
     object Lesson : RoutesApp("lesson/{lessonId}/{title}") {
@@ -23,6 +23,13 @@ sealed class RoutesApp(val route: String) {
         const val arg = "lessonId"
         fun createRoute(lessonId: TopicSyllabusId) = "finished/$lessonId"
     }
+
+    object TestIntroduction : RoutesApp("test_introduction")
     object Test : RoutesApp("test")
+    object TestFinished : RoutesApp("test_finished/{result}") {
+        const val arg = "result"
+        fun createRoute(testResult: Int) = "test_finished/$testResult"
+    }
+
     object Result : RoutesApp("result")
 }

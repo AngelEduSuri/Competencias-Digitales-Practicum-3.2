@@ -1,10 +1,10 @@
-package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.introduction
+package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.lessonintroduction
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.R
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.sources.StaticDataSource
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.MessageIntroduction
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TopicMessageIntro
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TopicSyllabusId
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.navigation.RoutesApp
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,7 +28,7 @@ class IntroductionViewModel @Inject constructor(
     }
 
     private fun getTopicForId() {
-        val id = savedStateHandle.get<TopicSyllabusId>(RoutesApp.Introduction.arg)
+        val id = savedStateHandle.get<TopicSyllabusId>(RoutesApp.LessonIntroduction.arg)
         requireNotNull(id)
         data.getIntroductionForId(topicId = id)?.let { topic ->
             _uiState.update {
@@ -53,7 +53,7 @@ class IntroductionViewModel @Inject constructor(
 
 data class IntroductionUiState(
     val isContentEmpty: Boolean = true,
-    val topic: MessageIntroduction = MessageIntroduction(
+    val topic: TopicMessageIntro = TopicMessageIntro(
         id = TopicSyllabusId.NONE,
         title = "No encontrado",
         lottieAnim = R.raw.content_not_found_animation,
