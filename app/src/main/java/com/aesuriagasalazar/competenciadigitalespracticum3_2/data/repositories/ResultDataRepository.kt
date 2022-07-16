@@ -1,7 +1,7 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.data.repositories
 
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.service.RemoteStorageService
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TestResult
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TestScore
 import com.google.gson.Gson
 import javax.inject.Inject
 
@@ -11,7 +11,7 @@ class ResultDataRepository @Inject constructor(
     private val remoteStorageService: RemoteStorageService
 ) {
 
-    suspend fun saveTestResult(result: TestResult) {
+    suspend fun saveTestResult(result: TestScore) {
         userRepository.userLoginState().collect { isLogin ->
             if (isLogin) {
                 userRepository.getUserUID().collect { uid ->
@@ -25,10 +25,13 @@ class ResultDataRepository @Inject constructor(
         saveResultToString(result)
     }
 
-    suspend fun getTestResult() = localDataRepository.getUserResult()
-        .also { if (it.isEmpty()) emptyList<TestResult>() else jsonToList(it) }
+    suspend fun getTestResult(): List<TestScore> {
+        localDataRepository.getUserResult().also {
+            return if (it.isEmpty()) emptyList() else jsonToList(it)
+        }
+    }
 
-    private suspend fun saveResultToString(result: TestResult) {
+    private suspend fun saveResultToString(result: TestScore) {
         localDataRepository.getUserResult().also {
             if (it.isNotEmpty()) {
                 val list = jsonToList(it) + result
@@ -40,15 +43,15 @@ class ResultDataRepository @Inject constructor(
         }
     }
 
-    private fun listToJson(list: List<TestResult>): String {
+    private fun listToJson(list: List<TestScore>): String {
         Gson().also {
             return it.toJson(list)
         }
     }
 
-    private fun jsonToList(json: String): List<TestResult> {
+    private fun jsonToList(json: String): List<TestScore> {
         Gson().also {
-            return it.fromJson(json, Array<TestResult>::class.java).toList()
+            return it.fromJson(json, Array<TestScore>::class.java).toList()
         }
     }
 

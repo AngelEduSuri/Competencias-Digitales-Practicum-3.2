@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Competencia Digitales Pracitum 3.2</string>
+    <string name="app_name">Competencias Digitales Prácitum 3.2</string>
     <string name="next">Continuar</string>
     <string name="not_show_message">No mostrar de nuevo</string>
     <string name="welcome">Bienvenido</string>
@@ -22,11 +22,9 @@
     <string name="home">Inicio</string>
     <string name="lesson_finished_title">¡Lección Terminada!</string>
     <string name="congratulation_message">¡Curso Completado!</string>
-    <string name="lesson_complete_message">Ah finalizado todo el curso sobre como compartir contenido por medios digitales sencillos, Felicitaciones!!</string>
+    <string name="lesson_complete_message">Ah finalizado el curso sobre como compartir contenido por medios digitales sencillos, Felicitaciones!!.\nAhora puede realizar el exámen para comprobar sus conocimientos.</string>
     <string name="accept">Aceptar</string>
 
-
-    <string name="client_id">747793282874-4uq9bb7en7ftithmnuch5ttr8akvf4mk.apps.googleusercontent.com</string>
     <string name="test_tittle">Cuestionario</string>
     <string name="question_count">Pregunta N° %s</string>
     <string name="test_message">Es hora de poner a prueba tus conocimientos adquiridos durante el curso. La evaluación consta de 15 preguntas cuyos temas abarcan todo el contenido visto anteriormente</string>
@@ -41,4 +39,9 @@
     <string name="test_finished_tittle">¡EVALUACION FINALIZADA!</string>
     <string name="try_again_button">Intentar de nuevo</string>
     <string name="home_button">Inicio</string>
+    <string name="score_title">CALIFICACIONES</string>
+    <string name="score_empty_context">No existen calificaciones guardadas en el dispositivo, estudie el temario y realice el exámen para visualizar sus notas.</string>
+    <string name="score">Nota: %s</string>
+    <string name="date">Fecha: %s</string>
+    <string name="order_by">Ordenar por:</string>
 </resources>

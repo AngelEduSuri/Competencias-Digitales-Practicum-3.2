@@ -26,10 +26,10 @@ sealed class RoutesApp(val route: String) {
 
     object TestIntroduction : RoutesApp("test_introduction")
     object Test : RoutesApp("test")
-    object TestFinished : RoutesApp("test_finished/{result}") {
-        const val arg = "result"
-        fun createRoute(testResult: Int) = "test_finished/$testResult"
+    object TestFinished : RoutesApp("test_finished/{score}") {
+        const val arg = "score"
+        fun createRoute(testScore: Int) = "test_finished/$testScore"
     }
 
-    object Result : RoutesApp("result")
+    object Score : RoutesApp("score")
 }

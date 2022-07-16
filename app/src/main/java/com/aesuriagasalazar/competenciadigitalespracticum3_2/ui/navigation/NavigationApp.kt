@@ -12,7 +12,7 @@ import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.lessonfi
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.lessonintroduction.IntroductionScreen
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.menu.MenuScreen
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.message.InitialMessageScreen
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.result.ResultScreen
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.score.ScoreScreen
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.splash.SplashScreen
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.syllabus.SyllabusScreen
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.screens.test.TestSyllabusScreen
@@ -148,8 +148,8 @@ fun NavigationApp() {
             })
         }
 
-        composable(route = RoutesApp.Result.route) {
-            ResultScreen()
+        composable(route = RoutesApp.Score.route) {
+            ScoreScreen(onBackScreen = { navController.popBackStack() })
         }
     }
 }

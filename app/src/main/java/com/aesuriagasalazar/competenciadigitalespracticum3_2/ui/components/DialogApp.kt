@@ -1,5 +1,6 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
@@ -34,7 +35,7 @@ fun DialogApp(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceAround
             ) {
-                Column(modifier = Modifier.weight(weight = 0.7f)) {
+                Column(modifier = Modifier.weight(weight = 1f)) {
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
                         color = titleBackgroundColor
@@ -58,7 +59,7 @@ fun DialogApp(
                     modifier = Modifier.weight(weight = 1f),
                     lottieAnim = lottieAnimationBody,
                 )
-                Box(modifier = Modifier.weight(weight = 0.3f)) {
+                Box {
                     Button(onClick = onCloseDialog) {
                         Text(text = titleButtonAccept)
                     }

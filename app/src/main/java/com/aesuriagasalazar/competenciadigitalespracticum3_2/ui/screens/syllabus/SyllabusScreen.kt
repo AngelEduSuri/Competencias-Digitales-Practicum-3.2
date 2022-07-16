@@ -23,7 +23,6 @@ import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TopicSyllabu
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.DialogApp
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.SurfaceApp
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.components.TopBarApplication
-import com.airbnb.lottie.compose.LottieConstants
 
 @Composable
 fun SyllabusScreen(

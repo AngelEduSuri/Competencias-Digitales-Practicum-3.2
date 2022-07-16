@@ -112,7 +112,7 @@ class MenuViewModel @Inject constructor(
     }
 
     fun onResultClick(onNextScreen: (String) -> Unit) {
-        onNextScreen(RoutesApp.Result.route)
+        onNextScreen(RoutesApp.Score.route)
     }
 }
 

@@ -1,13 +1,11 @@
 package com.aesuriagasalazar.competenciadigitalespracticum3_2.data.service.impl
 
-import android.content.Context
+import android.content.SharedPreferences
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.service.LocalStorageService
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-private const val PREF_NAME = "digitalSkills"
 private const val INITIAL_MESSAGE = "initial"
 private const val USER_NAME = "username"
 private const val TOPIC_FILE = "topic_file"
@@ -19,11 +17,10 @@ private const val ALL_TOPICS_COMPLETED = "all_topics_completed"
 private const val USER_RESULT = "user_result"
 private const val TEST_COMPLETED = "test_completed"
 
-class LocalStorageServiceImpl @Inject constructor(@ApplicationContext private val context: Context) :
-    LocalStorageService {
-
-    private val sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-    private val editor = sharedPref.edit()
+class LocalStorageServiceImpl @Inject constructor(
+    private val sharedPref: SharedPreferences,
+    private val editor: SharedPreferences.Editor
+) : LocalStorageService {
 
     // Extension function for save values with strings const
 
@@ -87,7 +84,7 @@ class LocalStorageServiceImpl @Inject constructor(@ApplicationContext private va
 
     override suspend fun getIfTestIsCompleted() = TEST_COMPLETED.getBoolean()
 
-    // Set and get values in shared preferences
+    // Set and get values on shared preferences
 
     private suspend fun String.saveBoolean(boolean: Boolean) = withContext(Dispatchers.IO) {
         editor.putBoolean(this@saveBoolean, boolean)

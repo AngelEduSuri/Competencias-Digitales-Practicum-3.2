@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.repositories.ResultDataRepository
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.sources.StaticDataSource
-import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TestResult
+import com.aesuriagasalazar.competenciadigitalespracticum3_2.domain.TestScore
 import com.aesuriagasalazar.competenciadigitalespracticum3_2.ui.navigation.RoutesApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -47,7 +47,7 @@ class TestFinishedViewModel @Inject constructor(
             Locale.getDefault()
         ).format(Calendar.getInstance().time)
 
-        resultDataRepository.saveTestResult(TestResult(uiState.value.result, formatDate))
+        resultDataRepository.saveTestResult(TestScore(uiState.value.result, formatDate))
         resultDataRepository.saveTestCompleted(true)
     }
 }

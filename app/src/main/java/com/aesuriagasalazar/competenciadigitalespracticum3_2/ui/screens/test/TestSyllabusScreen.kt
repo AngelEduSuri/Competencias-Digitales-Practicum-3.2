@@ -41,7 +41,7 @@ fun TestSyllabusScreen(
                 questionTitle = uiState.questionTitle,
                 answer = uiState.answerSelected,
                 questionCount = uiState.testIndex,
-                points = uiState.points,
+                points = uiState.score,
                 isCorrectAnswer = uiState.isAnswerCorrect,
                 isAnyAnswerSelected = uiState.isAnyAnswerSelected,
                 totalQuestionsCount = uiState.totalQuestionsCount,

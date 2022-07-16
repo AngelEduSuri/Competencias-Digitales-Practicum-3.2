@@ -76,7 +76,7 @@ class TestSyllabusViewModel @Inject constructor(private val staticDataSource: St
 
     private fun correctAnswer() {
         _uiState.update {
-            it.copy(isAnswerCorrect = true, points = it.points + 1)
+            it.copy(isAnswerCorrect = true, score = it.score + 1)
         }
     }
 
@@ -101,7 +101,7 @@ class TestSyllabusViewModel @Inject constructor(private val staticDataSource: St
         } else {
             delay(1500)
             onTestFinished(
-                RoutesApp.TestFinished.createRoute(uiState.value.points),
+                RoutesApp.TestFinished.createRoute(uiState.value.score),
                 RoutesApp.MenuApp.route
             )
         }
@@ -114,7 +114,7 @@ data class TestSyllabusUiState(
     val questionTitle: String = "",
     val testIndex: Int = 0,
     val answerSelected: String = "",
-    val points: Int = 0,
+    val score: Int = 0,
     val isAnswerCorrect: Boolean? = null,
     val isAnyAnswerSelected: Boolean = false,
     val totalQuestionsCount: Int = 0,
