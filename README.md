@@ -25,7 +25,7 @@ A continuacion se presentan las diferentes tecnologías y herramientas utilizada
 * [Firebase Authentication][4]
 * [Firestore][5]
 
-## Injección de dependencias:
+## Inyección de dependencias:
 * [Hilt for Android][8]
 
 ## Programación Asíncrona:
