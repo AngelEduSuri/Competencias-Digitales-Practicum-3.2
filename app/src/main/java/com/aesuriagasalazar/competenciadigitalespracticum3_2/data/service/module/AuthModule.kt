@@ -8,6 +8,7 @@ import com.aesuriagasalazar.competenciadigitalespracticum3_2.data.service.impl.A
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -25,6 +26,9 @@ class AuthModule {
     fun provideContext(
         app: Application
     ): Context = app.applicationContext
+
+    @Provides
+    fun firebaseInit(context: Context) = FirebaseApp.initializeApp(context)
 
     @Provides
     fun firebaseAuthInstance() = Firebase.auth
